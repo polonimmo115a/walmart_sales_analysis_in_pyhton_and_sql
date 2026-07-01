@@ -213,6 +213,21 @@ group by 2
 - Afternoon and Evening shifts generated the highest number of transactions, indicating peak customer engagement periods and opportunities for staffing optimization.
 - Branch-level analysis revealed that customer preferences and top-rated categories varied significantly by city and location, emphasizing the importance of localized inventory and marketing strategies.
 
+
+## Business Recommendations:
+
+- Improve customer service quality and operational efficiency in low-rated branches to reduce long-term customer dissatisfaction.
+- Focus marketing campaigns on high-margin product categories to improve profitability instead of relying only on high-volume sales.
+- Optimize staffing and inventory management during peak Afternoon and Evening sales periods.
+- Introduce loyalty rewards and digital payment offers to improve customer retention and increase repeat purchases.
+- Conduct branch-level root cause analysis for declining revenue branches to identify pricing, inventory, or competition-related issues.
+- Reduce excessive discounting in low-profit categories and improve supplier cost optimization strategies.
+
+
+## Final Conclusion:
+
+The analysis revealed that while several Walmart branches generate strong revenue, profitability and customer satisfaction remain uneven across locations and product categories. By focusing on high-margin categories, improving customer experience in underperforming branches, and optimizing operational efficiency during peak sales periods, the business can significantly improve long-term profitability, customer retention, and sustainable revenue growth.
+
   
 
   
