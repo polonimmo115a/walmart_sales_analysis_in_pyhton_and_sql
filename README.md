@@ -114,8 +114,97 @@ where business_status = 'High sales --low satisfaction'
 - improve inventory availability
 - launch customer satisfaction initiatives
 
+## Business Problem 2: Which product category generate high revenue but low profitability
 
-  ##
+```sql
+
+with category_segmentation1 as(
+select category,sum(total_amount) as total_revenue,avg(profit_margin) as avg_profit_margin,
+case when sum(total_amount)>60000 and avg(profit_margin)>0.60 then 'High margin category'
+when sum(total_amount)>60000 and avg(profit_margin)<0.40 then 'Volume heavy but profit light'
+when sum(total_amount) between 40000 and 60000 and avg(profit_margin) between 0.40 and 0.60 then 'revenue driver but weak profitability'
+else 'low margin'
+end as category_segmentation
+from walmart_sales
+group by 1
+order by 2 desc
+) 
+select category,total_revenue,avg_profit_margin,category_segmentation
+from category_segmentation1
+where category_segmentation= 'Volume heavy but profit light'
+```
+
+**Business Insight:** Fashion accessories,home & lifestyle and electronics_accessories has the highest revenue but below average margins,indicating potential 
+over_discounting or supply chain inefficiencies
+
+**Recommendation:**
+- reduce excessive discounting in low margin categories
+- re-negotiate supplier pricing
+- increase marketing for profitable categories
+
+## Business Problem 3: Identify 5 branch with highest revenue decrease ratio
+
+```sql
+
+with revenue_2022 as (
+select branch,sum(total_amount) as total_revenue
+from walmart_sales
+where extract( year from to_date(date,'dd/mm/yy'))=2022
+group by 1
+order by 1
+),
+
+ revenue_2023 as
+(
+select branch,sum(total_amount) as total_revenue
+from walmart_sales
+where extract( year from to_date(date,'dd/mm/yy'))=2023
+group by 1
+order by 1
+)
+select ls.branch,ls.total_revenue as last_year_revenue,cs.total_revenue as current_year_revenue,
+round((ls.total_revenue-cs.total_revenue)::numeric/ls.total_revenue::numeric*100,2) as rdr
+from revenue_2022 ls join revenue_2023 cs on ls.branch=cs.branch
+where ls.total_revenue>cs.total_revenue
+order by 4 desc
+limit 5
+```
+
+**Business Insight:** allows the management to pinpoint locations bleeding market share or failing to adapt to local demand
+
+**Recommendation:**
+- Regional Pricing & Competitor Audits
+- Targeted Inventory Optimization
+- Digital Integration & Delivery
+- Store-Level Marketing & B2B Partnerships
+
+## Business Problem 4: Categorize the sales into three groups Morning,Afternoon and Evening and also find out no of transactions
+in each shift
+
+```sql
+
+select count(*) as no_of_transaction,
+case when extract(hour from (time::time))<12 then 'Morning'
+     when extract(hour from (time::time)) between 12 and 17 then 'Afternoon'
+	 else 'Evening'
+	 end as shift
+from walmart_sales
+group by 2
+```
+
+**Business Insight:** allows the management for staffing&resource allocation and inventory&replenishment operations
+
+**Recommendation:**
+- **Morning Shift:** Typically sees lighter, convenience-driven traffic (e.g., grocery top-ups, breakfast items).
+- Recommendation: Keep staffing lean but ensure fast, express checkout lanes are open. Focus on fresh produce and bakery restocking early.
+- **Afternoon Shift:** Often the busiest time for large family trips or weekend shopping.
+- Recommendation: Maximize register availability and open all checkout lanes to prevent long wait times. Schedule heavy floor stocking during off-peak windows to avoid aisle congestion.
+- **Evening Shift:** High traffic from working professionals grabbing dinner supplies or household essentials.
+- Recommendation: Ensure high-demand grab-and-go items, deli sections, and self-checkout areas are fully operational and well-staffed.
+  
+
+  
+
 
 
 
