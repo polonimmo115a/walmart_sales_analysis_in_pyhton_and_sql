@@ -60,17 +60,9 @@ This project is an end-to-end data analysis solution designed to extract critica
      - Sales performance by time, city, and payment method.
      - Analyzing peak sales periods and customer buying patterns.
      - Profit margin analysis by branch and category.
-   - **Documentation**: Keep clear notes of each query's objective, approach, and results.
-
-### 10. Project Publishing and Documentation
-   - **Documentation**: Maintain well-structured documentation of the entire process in Markdown or a Jupyter Notebook.
-   - **Project Publishing**: Publish the completed project on GitHub or any other version control platform, including:
-     - The `README.md` file (this document).
-     - Jupyter Notebooks (if applicable).
-     - SQL query scripts.
-     - Data files (if possible) or steps to access them.
-
----
+     - Branches having high sales but poor customer satisfaction
+     - Product categories which is genarating high revenue but low profitability
+   
 
 ## Requirements
 
@@ -94,43 +86,36 @@ This project is an end-to-end data analysis solution designed to extract critica
 
 ---
 
-## Project Structure
+## Business Problem 1: Which branches have high sales but poor customer satisfaction
 
-```plaintext
-|-- data/                     # Raw data and transformed data
-|-- sql_queries/              # SQL scripts for analysis and queries
-|-- notebooks/                # Jupyter notebooks for Python analysis
-|-- README.md                 # Project documentation
-|-- requirements.txt          # List of required Python libraries
-|-- main.py                   # Main script for loading, cleaning, and processing data
+```sql
+
+with business_status1 as (
+select branch,sum(total_amount) as total_revenue,avg(rating) as avg_rating,
+case when sum(total_amount)>25000 and avg(rating)<6 then 'High sales --low satisfaction'
+when sum(total_amount) between 10000 and 25000 and avg(rating) between 6 and 8 then 'Medium sales and Medium satisfaction'
+when sum(total_amount)>25000 and avg(rating)>8 then 'Strong Performnace'
+else 'Need attention'
+end as business_status
+from walmart_sales
+group by 1
+order by 1
+)
+select branch,total_revenue,avg_rating,business_status
+from business_status1
+where business_status = 'High sales --low satisfaction'
 ```
----
+**Business Insight:** Certain branches maintain strong short term revenue despite low customer ratings,indicating potential long-term retention risk
 
-## Results and Insights
+**Recommendation:** 
 
-This section will include your analysis findings:
-- **Sales Insights**: Key categories, branches with highest sales, and preferred payment methods.
-- **Profitability**: Insights into the most profitable product categories and locations.
-- **Customer Behavior**: Trends in ratings, payment preferences, and peak shopping hours.
+- investigate customer complaints in low-rated branches
+- analyze staffing and checkout wait times
+- improve inventory availability
+- launch customer satisfaction initiatives
 
-## Future Enhancements
 
-Possible extensions to this project:
-- Integration with a dashboard tool (e.g., Power BI or Tableau) for interactive visualization.
-- Additional data sources to enhance analysis depth.
-- Automation of the data pipeline for real-time data ingestion and analysis.
+  ##
 
----
 
-## License
 
-This project is licensed under the MIT License. 
-
----
-
-## Acknowledgments
-
-- **Data Source**: Kaggle’s Walmart Sales Dataset
-- **Inspiration**: Walmart’s business case studies on sales and supply chain optimization.
-
----
