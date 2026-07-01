@@ -202,6 +202,17 @@ group by 2
 - **Evening Shift:** High traffic from working professionals grabbing dinner supplies or household essentials.
 - Recommendation: Ensure high-demand grab-and-go items, deli sections, and self-checkout areas are fully operational and well-staffed
 
+
+## Final Business Insights:
+
+- Identified Top 5 branches with the highest revenue decline ratio between 2022 and 2023, helping uncover potential customer retention and operational issues.
+- Branches generating revenue above 25,000+ but maintaining customer ratings below 6/10 were categorized as “High Sales – Low Satisfaction”, indicating future risks of customer churn and declining loyalty.
+- Product categories generating more than 60,000+ revenue with profit margins below 40% were identified as “Volume Heavy but Profit Light”, highlighting revenue growth without sustainable profitability.
+- Categories with profit margins above 60% were classified as High-Margin Categories, showing strong opportunities for strategic promotions and revenue optimization.
+- Digital payment methods contributed the highest transaction volumes, showing a clear shift toward cashless purchasing behavior and customer convenience preferences.
+- Afternoon and Evening shifts generated the highest number of transactions, indicating peak customer engagement periods and opportunities for staffing optimization.
+- Branch-level analysis revealed that customer preferences and top-rated categories varied significantly by city and location, emphasizing the importance of localized inventory and marketing strategies.
+
   
 
   
