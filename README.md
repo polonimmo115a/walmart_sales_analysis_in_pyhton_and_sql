@@ -200,7 +200,8 @@ group by 2
 - **Afternoon Shift:** Often the busiest time for large family trips or weekend shopping.
 - Recommendation: Maximize register availability and open all checkout lanes to prevent long wait times. Schedule heavy floor stocking during off-peak windows to avoid aisle congestion.
 - **Evening Shift:** High traffic from working professionals grabbing dinner supplies or household essentials.
-- Recommendation: Ensure high-demand grab-and-go items, deli sections, and self-checkout areas are fully operational and well-staffed.
+- Recommendation: Ensure high-demand grab-and-go items, deli sections, and self-checkout areas are fully operational and well-staffed
+
   
 
   
