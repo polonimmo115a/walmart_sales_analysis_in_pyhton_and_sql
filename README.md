@@ -178,8 +178,8 @@ limit 5
 - Digital Integration & Delivery
 - Store-Level Marketing & B2B Partnerships
 
-## Business Problem 4: Categorize the sales into three groups Morning,Afternoon and Evening and also find out no of transactions
-in each shift
+## Business Problem 4: Categorize the sales into three groups Morning,Afternoon and Evening and also find out no of transactions in each shift
+
 
 ```sql
 
