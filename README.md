@@ -3,6 +3,9 @@
 ## Project Overview
 This project is an end-to-end data analysis solution designed to extract critical business insights from Walmart sales data. We utilize Python for data processing and analysis, SQL for advanced querying, and structured problem-solving techniques to solve key business questions. The project is ideal for data analysts looking to develop skills in data manipulation, SQL querying, and data pipeline creation.
 
+This project explores a multi-branch sales dataset to diagnose operational bottlenecks, evaluate product performance, and optimize local marketing strategies across different cities. By converting raw transactional logs into relational business intelligence, this analysis directly supports key stakeholder decisions regarding resource allocation and inventory optimization.
+
+
 ---
 ## Business Problems
 
@@ -22,51 +25,126 @@ This project is an end-to-end data analysis solution designed to extract critica
 
 ### 3. Revenue Protection: Diagnose root causes behind underperforming locations flagged by YoY declines.
 
+---
 
-## Project Steps
+### 📋 Target Business Problems & Strategic Alignment
 
-### 1. Set Up the Environment
-   - **Tools Used**: Visual Studio Code (VS Code), Python, SQL (MySQL and PostgreSQL)
-   - **Goal**: Create a structured workspace within VS Code and organize project folders for smooth development and data handling.
+#### 1. Analyze Payment Methods and Sales
+* **Core Question:** What are the different payment methods, and how many transactions and items were sold with each method?
+* **Strategic Purpose:** Helps understand customer preferences for payment channels, directly aiding in checkout optimization and digital transaction cost strategies.
 
-### 2. Set Up Kaggle API
-   - **API Setup**: Obtain your Kaggle API token from [Kaggle](https://www.kaggle.com/) by navigating to your profile settings and downloading the JSON file.
-   - **Configure Kaggle**: 
-      - Place the downloaded `kaggle.json` file in your local `.kaggle` folder.
-      - Use the command `kaggle datasets download -d <dataset-path>` to pull datasets directly into your project.
+#### 2. Identify the Highest-Rated Category in Each Branch
+* **Core Question:** Which category received the highest average rating in each branch?
+* **Strategic Purpose:** Allows regional management to recognize and promote popular product lines in specific branches, enhancing branch-specific marketing and inventory allocation.
 
-### 3. Download Walmart Sales Data
-   - **Data Source**: Use the Kaggle API to download the Walmart sales datasets from Kaggle.
-   - **Dataset Link**: [Walmart Sales Dataset](https://www.kaggle.com/najir0123/walmart-10k-sales-datasets)
-   - **Storage**: Save the data in the `data/` folder for easy reference and access.
+#### 3. Determine the Busiest Day for Each Branch
+* **Core Question:** What is the busiest day of the week for each branch based on transaction volume?
+* **Strategic Purpose:** Pinpoints operational demand trends to optimize weekly labor scheduling, reduce labor spend overhead, and avoid peak-hour stockouts.
 
-### 4. Install Required Libraries and Load Data
-   - **Libraries**: Install necessary Python libraries using:
-     ```bash
-     pip install pandas numpy sqlalchemy mysql-connector-python psycopg2
-     ```
-   - **Loading Data**: Read the data into a Pandas DataFrame for initial analysis and transformations.
+#### 4. Calculate Total Quantity Sold by Payment Method
+* **Core Question:** How many items were sold through each payment method?
+* **Strategic Purpose:** Measures volume capacity across payment gateways to track shopping bag sizes relative to customer transaction categories.
 
-### 5. Explore the Data
-   - **Goal**: Conduct an initial data exploration to understand data distribution, check column names, types, and identify potential issues.
-   - **Analysis**: Use functions like `.info()`, `.describe()`, and `.head()` to get a quick overview of the data structure and statistics.
+#### 5. Analyze Category Ratings by City
+* **Core Question:** What are the average, minimum, and maximum ratings for each category in each city?
+* **Strategic Purpose:** Guides city-level promotions, allowing localized regional supply teams to address product gaps and improve customer experience trends.
 
-### 6. Data Cleaning
-   - **Remove Duplicates**: Identify and remove duplicate entries to avoid skewed results.
-   - **Handle Missing Values**: Drop rows or columns with missing values if they are insignificant; fill values where essential.
-   - **Fix Data Types**: Ensure all columns have consistent data types (e.g., dates as `datetime`, prices as `float`).
-   - **Currency Formatting**: Use `.replace()` to handle and format currency values for analysis.
-   - **Validation**: Check for any remaining inconsistencies and verify the cleaned data.
+#### 6. Calculate Total Profit by Category
+* **Core Question:** What is the total profit for each category, ranked from highest to lowest?
+* **Strategic Purpose:** Identifies key product lines driving net margins, which helps refine corporate pricing rules and item assortment plans.
 
-### 7. Feature Engineering
-   - **Create New Columns**: Calculate the `Total Amount` for each transaction by multiplying `unit_price` by `quantity` and adding this as a new column.
-   - **Enhance Dataset**: Adding this calculated field will streamline further SQL analysis and aggregation tasks.
+#### 7. Determine the Most Common Payment Method per Branch
+* **Core Question:** What is the most frequently used payment method in each branch?
+* **Strategic Purpose:** Reveals branch-specific customer demographics, allowing individual store operations to streamline hardware placement and digital payment lane setups.
 
-### 8. Load Data into MySQL and PostgreSQL
-   - **Set Up Connections**: Connect to MySQL and PostgreSQL using `sqlalchemy` and load the cleaned data into each database.
-   - **Table Creation**: Set up tables in both MySQL and PostgreSQL using Python SQLAlchemy to automate table creation and data insertion.
-   - **Verification**: Run initial SQL queries to confirm that the data has been loaded accurately.
+#### 8. Analyze Sales Shifts Throughout the Day
+* **Core Question:** How many transactions occur in each shift (Morning, Afternoon, Evening) across branches?
+* **Strategic Purpose:** Provides operational teams with data to schedule floor staff shifts and plan truck delivery offloading times effectively.
 
+#### 9. Identify Branches with Highest Revenue Decline Year-Over-Year
+* **Core Question:** Which branches experienced the largest decrease in revenue compared to the previous year?
+* **Strategic Purpose:** Flags underperforming locations suffering from structural or local market pressures, serving as an early-warning signal for corporate turnaround strategies.
+
+---
+
+## 🛠️ Tech Stack & Dependencies
+The following core Python libraries and database adapters are required to run this data pipeline:
+* **Data Processing & Manipulation:** `pandas` (v2.2.3)
+* **Database Object-Relational Mapping:** `SQLAlchemy`
+* **MySQL Database Driver Connector:** `pymysql`
+* **PostgreSQL Database Driver Connector:** `psycopg2`
+
+---
+
+## 📊 Dataset Schema Blueprint
+The final cleaned dataset contains **9,969 verified transaction records** mapped across 12 distinct columns:
+
+| Column Name | Data Type | Description |
+| :--- | :--- | :--- |
+| `invoice_id` | `int64` | Unique identification number for each retail receipt |
+| `branch` | `object` | Designated Walmart branch code (e.g., `WALM003`) |
+| `city` | `object` | The city where the branch location is situated |
+| `category` | `object` | Product category department (e.g., `Health and beauty`) |
+| `unit_price` | `float64` | The cost per individual item (cleaned decimal values) |
+| `quantity` | `float64` | Total number of items purchased |
+| `date` | `object` | Calendar date of the store transaction |
+| `time` | `object` | Time stamp of the customer checkout window |
+| `payment_method`| `object` | Digital/physical checkout channel (`Cash`, `Credit card`, `Ewallet`) |
+| `rating` | `float64` | Customer feedback score ranging from 3.0 to 10.0 |
+| `profit_margin` | `float64` | Net profit percentage margin on the transaction |
+| `total` | `float64` | Engineered feature representing total sale price (`unit_price` × `quantity`) |
+
+---
+
+## 🚀 Step-by-Step Data Pipeline
+
+### Step 1: Initial Discovery & Profiling
+* Loaded the raw transaction file using `pd.read_csv('Walmart.csv', encoding_errors='ignore')`.
+* Evaluated dimensions via `df.shape`, identifying an initial footprint of **10,051 records and 11 columns**.
+* Executed structural inspects with `df.info()` and statistical summaries with `df.describe()` to evaluate data types and find columns containing missing data.
+
+### Step 2: Deduplication
+* Checked for absolute row duplicates via `df.duplicated().sum()`, isolating **51 duplicate records**.
+* Cleared them using `df.drop_duplicates(inplace=True)` to shrink the data footprint down to **10,000 distinct logs**.
+
+### Step 3: Imputation & Null Value Handling
+* Monitored column gaps using `df.isnull().sum()`, which exposed **31 missing data fields** inside both `unit_price` and `quantity`.
+* Purged rows containing missing elements using `df.dropna(inplace=True)` to produce a final baseline of **9,969 perfectly populated rows**.
+
+### Step 4: Text Cleaning & Type Casting
+* Discovered that `unit_price` was incorrectly categorized as a text string (`object`) because it contained active currency formatting signs (`$`).
+* Stripped the dollar signs out of the string data and recast the entire array to decimal floats to allow mathematical processing:
+```python
+  df['unit_price'] = df['unit_price'].str.replace('$', '').astype(float)
+  ```
+
+### Step 5: Feature Engineering
+* Generated a brand-new calculation metric column named `total` to represent overall transactional values before taxes are implemented:
+  ```python
+  df['total'] = df['unit_price'] * df['quantity']
+  ```
+
+### Step 6: Text Standardization
+* Normalized database structural mapping constraints by rewriting all DataFrame string headers into unified, lowercase formats:
+  ```python
+  df.columns = df.columns.str.lower()
+  ```
+
+  ### Step 7: Exporting Sanity Baselines
+* Generated a localized copy of the clean data output using `df.to_csv('walmart_clean_data.csv', index=False)`.
+
+### Step 8: Multi-Engine Database Ingestion
+* Programmatically pushed the formatted records directly into live target relational data structures using automated database engines:
+  ```python
+  # Ingestion into local MySQL instance
+  engine_mysql = create_engine("mysql+pymysql://root@localhost:3306/walmart_db")
+  df.to_sql(name='walmart', con=engine_mysql, if_exists='append', index=False)
+
+  # Ingestion into local PostgreSQL instance
+  engine_psql = create_engine("postgresql+psycopg2://postgres:YOUR_PASSWORD@localhost:5432/walmart_db")
+  df.to_sql(name='walmart', con=engine_psql, if_exists='replace', index=False)
+  ```
+  
 ### 9. SQL Analysis: Complex Queries and Business Problem Solving
    - **Business Problem-Solving**: Write and execute complex SQL queries to answer critical business questions, such as:
      - Revenue trends across branches and categories.
@@ -76,29 +154,8 @@ This project is an end-to-end data analysis solution designed to extract critica
      - Profit margin analysis by branch and category.
      - Branches having high sales but poor customer satisfaction
      - Product categories which is genarating high revenue but low profitability
-   
 
-## Requirements
-
-- **Python 3.8+**
-- **SQL Databases**: MySQL, PostgreSQL
-- **Python Libraries**:
-  - `pandas`, `numpy`, `sqlalchemy`, `mysql-connector-python`, `psycopg2`
-- **Kaggle API Key** (for data downloading)
-
-## Getting Started
-
-1. Clone the repository:
-   ```bash
-   git clone <repo-url>
-   ```
-2. Install Python libraries:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Set up your Kaggle API, download the data, and follow the steps to load and analyze.
-
----
+   ---
 
 ## Business Problem 1: Which branches have high sales but poor customer satisfaction
 
