@@ -4,6 +4,24 @@
 This project is an end-to-end data analysis solution designed to extract critical business insights from Walmart sales data. We utilize Python for data processing and analysis, SQL for advanced querying, and structured problem-solving techniques to solve key business questions. The project is ideal for data analysts looking to develop skills in data manipulation, SQL querying, and data pipeline creation.
 
 ---
+## Business Problems
+
+### 1. Customer Behavior & Payment Optimization
+
+### 2. Regional & Branch Performance
+
+### 3. Operational Efficiency & Staff Scheduling
+
+---
+
+## Expected Business Value
+
+### 1. Staff Optimization: Align human resources with high-volume sales windows and busy days.
+
+### 2. Targeted Marketing: Tailor localized promotional campaigns based on regional product category satisfaction.
+
+### 3. Revenue Protection: Diagnose root causes behind underperforming locations flagged by YoY declines.
+
 
 ## Project Steps
 
