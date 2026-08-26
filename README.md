@@ -27,7 +27,7 @@ This project explores a multi-branch sales dataset to diagnose operational bottl
 
 ---
 
-### 📋 Target Business Problems & Strategic Alignment
+### 📋 Targeted Business Problems & Strategic Alignment
 
 #### 1. Analyze Payment Methods and Sales
 * **Core Question:** What are the different payment methods, and how many transactions and items were sold with each method?
